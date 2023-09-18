@@ -2,6 +2,11 @@ body
 {
   background-color: yellow;
 }
+p
+{
+  font-size: 16;
+}
+
 .redText
 {
   color: red;
