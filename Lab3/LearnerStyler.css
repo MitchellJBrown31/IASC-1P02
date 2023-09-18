@@ -2,7 +2,11 @@ body
 {
   background-color: yellow;
 }
-body2
+.redText
 {
-  background-color: lightBlue;
+  color: red;
+}
+.italics
+{
+  font-style: italic;
 }
