@@ -15,3 +15,12 @@ p
 {
   font-style: italic;
 }
+#JustOnce
+{
+  font-weight: bolder;
+}
+.diffFont
+{
+  font-family: "Spectral", Arial, sans-serif;
+  text-align: right;
+}
