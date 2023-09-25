@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>NPC2 unused</name>
+    <events>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">npc2playerdistance</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">150</param>
+                </condition>
+            </conditions>
+            <actions />
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">npc2playerdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">150</param>
+                </condition>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">on</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-10" name="Set value" type="npc2">
+                    <param id="0" name="Instance variable">on</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">npc2playerdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">150</param>
+                </condition>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">on</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions />
+        </event-block>
+    </events>
+</c2eventsheet>

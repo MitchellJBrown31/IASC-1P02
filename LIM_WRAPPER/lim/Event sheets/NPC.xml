@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>NPC</name>
+    <events>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc">
+                    <param id="0" name="Instance variable">playerdistance</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+                <condition behavior="CustomMovement" id="1" name="Compare speed" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Speed">200</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">0.49</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="6" name="Set angle of motion" type="npc">
+                    <param id="0" name="Angle">random(360)</param>
+                </action>
+                <action behavior="CustomMovement" id="3" name="Accelerate" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Acceleration">50</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="0" name="On collision with another object" type="npc">
+                    <param id="0" name="Object">player</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">0.49</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="6" name="Set angle of motion" type="npc">
+                    <param id="0" name="Angle">random(360)</param>
+                </action>
+                <action behavior="CustomMovement" id="3" name="Accelerate" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Acceleration">50</param>
+                </action>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">20</param>
+                    <param id="1" name="Duration">0.4</param>
+                    <param id="2" name="Mode">0</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">hit</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-15" name="Pick nearest/furthest" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-7" name="Compare instance variable" type="npc">
+                    <param id="0" name="Instance variable">playerdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="6" name="Set speed" type="player">
+                    <param id="0" name="Speed">8</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="1" name="Is overlapping another object" type="npc">
+                    <param id="0" name="Object">wall</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="10" name="Push out solid" type="npc">
+                    <param id="0" name="Direction">1</param>
+                </action>
+                <action behavior="CustomMovement" id="1" name="Reverse" type="npc">
+                    <param id="0" name="Axes">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc">
+                    <param id="0" name="Instance variable">playerdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+                <condition behavior="CustomMovement" id="1" name="Compare speed" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Speed">0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="3" name="Accelerate" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="Acceleration">-25</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="1" name="Is overlapping another object" type="npc">
+                    <param id="0" name="Object">npc</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="10" name="Push out solid" type="npc">
+                    <param id="0" name="Direction">1</param>
+                </action>
+                <action behavior="CustomMovement" id="1" name="Reverse" type="npc">
+                    <param id="0" name="Axes">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="1" name="Is overlapping another object" type="npc">
+                    <param id="0" name="Object">npc2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="CustomMovement" id="10" name="Push out solid" type="npc">
+                    <param id="0" name="Direction">1</param>
+                </action>
+                <action behavior="CustomMovement" id="1" name="Reverse" type="npc">
+                    <param id="0" name="Axes">0</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>NPC2</name>
+    <events>
+        <event-block>
+            <conditions>
+                <condition id="0" name="On collision with another object" type="npc2">
+                    <param id="0" name="Object">player</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">40</param>
+                    <param id="1" name="Duration">0.4</param>
+                    <param id="2" name="Mode">0</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">hit</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Is boolean instance variable set" type="npc2">
+                    <param id="0" name="Instance variable">Active</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Physics" id="1" name="Apply force towards position" type="npc2">
+                    <param id="0" name="Force">15</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.y</param>
+                    <param id="3" name="Image point">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">npc2playerdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">200</param>
+                </condition>
+                <condition id="-8" name="Is boolean instance variable set" type="npc2">
+                    <param id="0" name="Instance variable">Active</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Physics" id="15" name="Set velocity" type="npc2">
+                    <param id="0" name="X component">0</param>
+                    <param id="1" name="Y component">0</param>
+                </action>
+                <action behavior="Physics" id="21" name="Set immovable" type="npc2">
+                    <param id="0" name="Setting">1</param>
+                </action>
+                <action id="-13" name="Set boolean" type="npc2">
+                    <param id="0" name="Instance variable">Active</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="npc2">
+                    <param id="0" name="Instance variable">npc2playerdistance</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">0.49</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Physics" id="21" name="Set immovable" type="npc2">
+                    <param id="0" name="Setting">0</param>
+                </action>
+                <action id="-13" name="Set boolean" type="npc2">
+                    <param id="0" name="Instance variable">Active</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

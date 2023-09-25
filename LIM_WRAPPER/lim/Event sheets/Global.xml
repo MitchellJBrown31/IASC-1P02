@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Global</name>
+    <events>
+        <include>NPC2</include>
+        <include>NPC</include>
+        <event-block>
+            <conditions>
+                <condition id="-1" name="Every tick" type="System" />
+            </conditions>
+            <actions>
+                <action id="-10" name="Set value" type="npc">
+                    <param id="0" name="Instance variable">playerdistance</param>
+                    <param id="1" name="Value">distance(player.X, player.Y, npc.x, npc.y)</param>
+                </action>
+                <action id="-10" name="Set value" type="npc2">
+                    <param id="0" name="Instance variable">npc2playerdistance</param>
+                    <param id="1" name="Value">distance(player.X, player.Y, npc2.X, npc2.Y)</param>
+                </action>
+                <action id="-10" name="Set value" type="other">
+                    <param id="0" name="Instance variable">otherdistance</param>
+                    <param id="1" name="Value">distance(player.X,player.Y,other.X,other.Y)</param>
+                </action>
+            </actions>
+        </event-block>
+        <variable name="closestdistance" type="number">85</variable>
+        <variable name="zoomtimer" type="number">0</variable>
+        <variable name="zactive" type="number">0</variable>
+        <variable name="lockstate" type="number">99</variable>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">0.49</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" type="player">
+                    <param id="0" name="Animation">&quot;lock1&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">0.49</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" type="player">
+                    <param id="0" name="Animation">&quot;lock2&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" type="player">
+                    <param id="0" name="Animation">&quot;default&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">99</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" type="player">
+                    <param id="0" name="Animation">&quot;lock2&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-15" name="Pick nearest/furthest" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-15" name="Pick nearest/furthest" type="npc2">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">npc.playerdistance</param>
+                    <param id="1" name="Comparison">2</param>
+                    <param id="2" name="Second value">npc2.npc2playerdistance</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">closestdistance</param>
+                    <param id="1" name="Value">npc.playerdistance</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-22" name="Else" type="System" />
+                <condition id="-15" name="Pick nearest/furthest" type="npc2">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">closestdistance</param>
+                    <param id="1" name="Value">npc2.npc2playerdistance</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Pressing Z locks to closest square</comment>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">zoomtimer</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">1</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+                <condition id="-15" name="Pick nearest/furthest" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-15" name="Pick nearest/furthest" type="npc2">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">npc.playerdistance</param>
+                    <param id="1" name="Comparison">2</param>
+                    <param id="2" name="Second value">npc2.npc2playerdistance</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Value">0.6</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-22" name="Else" type="System" />
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">zoomtimer</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">1</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+                <condition id="-15" name="Pick nearest/furthest" type="npc">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-15" name="Pick nearest/furthest" type="npc2">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">npc.playerdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">npc2.npc2playerdistance</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Value">0.3</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Start timer when Z is held, activate effects at 75, 201, 400, and &gt; 600</comment>
+        <event-block>
+            <conditions>
+                <condition id="2" name="Key is down" type="Keyboard">
+                    <param id="0" name="Key">90 (Z)</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Second value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">zoomtimer</param>
+                    <param id="1" name="Value">zoomtimer + 1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">zoomtimer</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">75</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-17" name="Set scale" type="System">
+                    <param id="0" name="Layer">1</param>
+                    <param id="1" name="Scale">LayerScale(1) + 0.003</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-21" name="Is between values" type="System">
+                    <param id="0" name="Value">zoomtimer</param>
+                    <param id="1" name="Lower bound">150</param>
+                    <param id="2" name="Upper bound">399</param>
+                </condition>
+                <condition id="-6" name="Every X seconds" type="System">
+                    <param id="0" name="Interval (seconds)">3</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">1</param>
+                    <param id="1" name="Duration">0.2</param>
+                    <param id="2" name="Mode">1</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.5</param>
+                </action>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">1</param>
+                    <param id="1" name="Duration">0.2</param>
+                    <param id="2" name="Mode">1</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-21" name="Is between values" type="System">
+                    <param id="0" name="Value">zoomtimer</param>
+                    <param id="1" name="Lower bound">400</param>
+                    <param id="2" name="Upper bound">599</param>
+                </condition>
+                <condition id="-6" name="Every X seconds" type="System">
+                    <param id="0" name="Interval (seconds)">1.5</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">1</param>
+                    <param id="1" name="Duration">0.2</param>
+                    <param id="2" name="Mode">1</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.2</param>
+                </action>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">1</param>
+                    <param id="1" name="Duration">0.2</param>
+                    <param id="2" name="Mode">1</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">zoomtimer</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">600</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="8Direction" id="4" name="Set max speed" type="player">
+                    <param id="0" name="Max Speed">15</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">zoomtimer</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">600</param>
+                </condition>
+                <condition id="-6" name="Every X seconds" type="System">
+                    <param id="0" name="Interval (seconds)">0.1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">4</param>
+                    <param id="1" name="Duration">0.1</param>
+                    <param id="2" name="Mode">1</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.05</param>
+                </action>
+                <action behavior="ScrollTo" id="0" name="Shake" type="player">
+                    <param id="0" name="Magnitude">4</param>
+                    <param id="1" name="Duration">0.1</param>
+                    <param id="2" name="Mode">1</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Initial zoom when Z pressed</comment>
+        <event-block>
+            <conditions>
+                <condition id="2" name="Key is down" type="Keyboard">
+                    <param id="0" name="Key">90 (Z)</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">layerscale(1)</param>
+                    <param id="1" name="Comparison">2</param>
+                    <param id="2" name="Second value">2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-17" name="Set scale" type="System">
+                    <param id="0" name="Layer">1</param>
+                    <param id="1" name="Scale">LayerScale(1) + 0.2</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Reduce speed when Z pressed</comment>
+        <event-block>
+            <conditions>
+                <condition id="0" name="On key pressed" type="Keyboard">
+                    <param id="0" name="Key">90 (Z)</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="8Direction" id="4" name="Set max speed" type="player">
+                    <param id="0" name="Max Speed">30</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">zoomin</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Reset speed, lockstate and zoomtimer when z released</comment>
+        <event-block>
+            <conditions>
+                <condition id="3" name="On key released" type="Keyboard">
+                    <param id="0" name="Key">90 (Z)</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">LayerScale(1)</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="8Direction" id="4" name="Set max speed" type="player">
+                    <param id="0" name="Max Speed">100</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">zoomtimer</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Value">2</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">zoomout</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Revert scale to normal when Z released, set to 1 if accidentally reduced smaller</comment>
+        <event-block>
+            <conditions>
+                <condition id="2" inverted="1" name="Key is down" type="Keyboard">
+                    <param id="0" name="Key">90 (Z)</param>
+                </condition>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">LayerScale(1)</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Second value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-17" name="Set scale" type="System">
+                    <param id="0" name="Layer">1</param>
+                    <param id="1" name="Scale">layerscale(1) - 0.2</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">layerscale(1)</param>
+                    <param id="1" name="Comparison">2</param>
+                    <param id="2" name="Second value">1</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-17" name="Set scale" type="System">
+                    <param id="0" name="Layer">1</param>
+                    <param id="1" name="Scale">1.0</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Switch lockstate everytime closestdistance is less than or equal to 85, except at start of game</comment>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Comparison">1</param>
+                    <param id="2" name="Value">99</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zoomtimer</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">0</param>
+                </condition>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">closestdistance</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Value">random(1)</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Reset lockstate with appropriate distance</comment>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">closestdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">150</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Value">2</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Close doors behind player</comment>
+        <event-block>
+            <conditions>
+                <condition id="1" name="Is overlapping another object" type="player">
+                    <param id="0" name="Object">trigger</param>
+                </condition>
+                <condition id="-15" name="Pick nearest/furthest" type="inviswall">
+                    <param id="0" name="Which">0</param>
+                    <param id="1" name="X">player.X</param>
+                    <param id="2" name="Y">player.Y</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Solid" id="0" name="Set enabled" type="inviswall">
+                    <param id="0" name="State">1</param>
+                </action>
+                <action id="-15" name="Set visible" type="inviswall">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Solid" id="0" name="Set enabled" type="inviswall">
+                    <param id="0" name="State">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-14" name="Compare variable" type="System">
+                    <param id="0" name="Variable">zoomtimer</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+                <condition id="-6" name="Every X seconds" type="System">
+                    <param id="0" name="Interval (seconds)">random(5.0)</param>
+                </condition>
+            </conditions>
+            <actions />
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="1" name="Is overlapping another object" type="player">
+                    <param id="0" name="Object">ztrigger</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">lockstate</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Second value">0.6</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" type="door1">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action behavior="Solid" id="0" name="Set enabled" type="door1">
+                    <param id="0" name="State">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">lockstate</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Second value">0.3</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" type="door2">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action behavior="Solid" id="0" name="Set enabled" type="door2">
+                    <param id="0" name="State">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-8" name="Compare two values" type="System">
+                    <param id="0" name="First value">lockstate</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Second value">2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" type="door1">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+                <action behavior="Solid" id="0" name="Set enabled" type="door1">
+                    <param id="0" name="State">1</param>
+                </action>
+                <action id="-15" name="Set visible" type="door2">
+                    <param id="0" name="Visibility">1</param>
+                </action>
+                <action behavior="Solid" id="0" name="Set enabled" type="door2">
+                    <param id="0" name="State">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="other">
+                    <param id="0" name="Instance variable">otherdistance</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" type="other">
+                    <param id="0" name="Animation">&quot;distant&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="-7" name="Compare instance variable" type="other">
+                    <param id="0" name="Instance variable">otherdistance</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">85</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" type="other">
+                    <param id="0" name="Animation">&quot;Default&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action behavior="8Direction" id="2" name="Set ignoring input" type="player">
+                    <param id="0" name="Input">1</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.5</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">2</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">0.5</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">2</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">heartlow</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                </action>
+                <action id="-16" name="Wait" type="System">
+                    <param id="0" name="Seconds">1</param>
+                </action>
+                <action id="-2" name="Go to layout" type="System">
+                    <param id="0" name="Layout">Layout 2</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="1" name="Is overlapping another object" type="player">
+                    <param id="0" name="Object">zuntrigger</param>
+                </condition>
+                <condition id="-4" name="Trigger once while true" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">zactive</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">lockstate</param>
+                    <param id="1" name="Value">2</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

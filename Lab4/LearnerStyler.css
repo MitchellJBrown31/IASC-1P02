@@ -1,0 +1,56 @@
+/* comment time */
+p.BlockRule1 /*if a member of p, and of BlockRule1*/
+{
+  background-color: grey;
+  text-align: center;
+  /*will not trigger on line 25, will on 26*/
+}
+
+div,p
+{
+  background-color: green;
+  font-style: italic;
+}
+
+div,p
+{
+  background-color: yellow;
+}
+
+div.BlockRule1 p
+{
+  /*all paras with div BlockRule1 as their parent*/
+  font-size: 48px;
+}
+
+div.BlockRule2 > p /*direct child of a div.BlockRule2*/
+{
+  text-align: right;
+}
+
+
+
+div ~ p
+{
+  font-size: 32px;
+  font-weight: bolder;
+  /*seeks any p with an "older sibling" div
+   aka share a parent with a div, div comes first*/
+}
+
+div + p /*follows a div closing*/
+{
+  font-size: 16px;
+  background-color: blue;
+}
+
+.ImgRule1 img
+{
+  background-color: red;
+  margin: 30px;
+  border: 10px black solid;
+  border-radius: 5px;
+  padding: 40px 20px 100px 80px;
+  height: auto;
+  width: 800px;
+}
